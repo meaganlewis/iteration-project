@@ -1,6 +1,4 @@
-// HistoryBox.jsx
-import Button from './Button'; // Import Button component
-import styles from '../../styles/HistoryStyles'; // Import styles from HistoryStyles.js
+import styles from '../styles/HistoryStyles'; // Import styles from HistoryStyles.js
 
 const HistoryBox = ({ day, date, onEdit, onDelete, circleColor, ratio }) => {
   return (
@@ -21,16 +19,15 @@ const HistoryBox = ({ day, date, onEdit, onDelete, circleColor, ratio }) => {
         <p>{ratio}</p>
       </div>
       <div style={styles.buttonContainer}>
-        <Button label='Edit' onClick={onEdit} />
-        <Button label='Delete' onClick={onDelete} />
+        <button style={styles.button} onClick={onEdit}>
+          Edit
+        </button>
+        <button style={styles.button} onClick={onDelete}>
+          Delete
+        </button>
       </div>
     </div>
   );
 };
-
-// const HistoryBoxProps = { day, date, onEdit, onDelete, circleColor, ratio };
-// HistoryBox.propTypes = {
-//   HistoryBoxProps: PropTypes.string,
-// };
 
 export default HistoryBox;

@@ -1,0 +1,129 @@
+/* Legend Container */
+.legend {
+  display: flex;
+  justify-content: space-around;
+  margin-bottom: 20px;
+}
+
+.legend-item {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+/* 5 pastel circle classes for 0..4 tasks completed */
+.legend-circle {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+}
+
+.legend-circle-0 {
+  background-color: #ffb3b3; /* Pastel Red */
+}
+
+.legend-circle-1 {
+  background-color: #ffd1b3; /* Pastel Orange */
+}
+
+.legend-circle-2 {
+  background-color: #ffffb3; /* Pastel Yellow */
+}
+
+.legend-circle-3 {
+  background-color: #b3ffff; /* Pastel Aqua */
+}
+
+.legend-circle-4 {
+  background-color: #b3ffb3; /* Pastel Green */
+}
+
+.legend-text {
+  font-size: 12px;
+  color: #555;
+}
+
+/* Main container for the History page */
+.container {
+  padding: 20px;
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+/* The area containing all the habit boxes */
+.history-container {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+/* Single row "box" for each habit record */
+.box {
+  display: flex;
+  align-items: center;
+  border: 1px solid #ccc;
+  padding: 10px;
+  border-radius: 8px;
+  background-color: #f9f9f9;
+  width: 100%;
+  gap: 10px; /* spacing between circle/content/buttons */
+}
+
+.circles-container {
+  margin-right: 10px;
+}
+
+/* The circle inside each box (you can also combine with .legend-circle if you prefer) */
+.circle {
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+}
+
+/* Column container for date/ratio text */
+.content {
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+}
+
+.top-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.day {
+  font-size: 16px;
+  font-weight: bold;
+  margin: 0;
+}
+
+.date {
+  font-size: 14px;
+  color: #888;
+  margin: 0;
+}
+
+.ratio {
+  font-size: 14px;
+  color: #555;
+  margin: 4px 0 0;
+}
+
+/* Buttons on the far right */
+.button-container {
+  display: flex;
+  gap: 5px;
+  align-items: center;
+}
+
+/* Button styles */
+button {
+  padding: 5px 10px;
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}

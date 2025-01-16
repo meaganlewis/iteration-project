@@ -5,7 +5,6 @@ import express from 'express';
 import mongoose from 'mongoose';
 import userRoutes from './routes/userRoutes.js';
 import oauthRoutes from './routes/oauthRoutes.js';
-import exerciseRoutes from './routes/exerciseRoutes.js';
 import habitRoutes from './routes/habitRoutes.js';
 
 // PORT defined in .env or defaults to 3000
@@ -27,7 +26,6 @@ app.use(express.urlencoded({ extended: true }));
 // Routes
 app.use('/api/user', userRoutes); // normal user signup/login
 app.use('/api/oauth', oauthRoutes); // GitHub OAuth
-app.use('/api/exercise', exerciseRoutes);
 app.use('/api/habits', habitRoutes);
 
 // 404 or “Not Found” Handler

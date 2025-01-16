@@ -11,12 +11,11 @@ form {
   gap: 20px;
 }
 
-.row {
+.rows {
   display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 10px;
+  flex-direction: row;
   margin-bottom: 10px;
+  gap: 10px;
 }
 
 label {

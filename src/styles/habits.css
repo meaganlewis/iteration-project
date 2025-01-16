@@ -1,12 +1,3 @@
-/* html,
-body {
-  margin: 0;
-  padding: 0;
-  width: 100%;
-  height: 100%;
-  background-color: #4f9df1;
-} */
-
 #root {
   background-color: #4f9df1;
   min-height: 100vh;
@@ -22,7 +13,7 @@ body {
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  min-height: 100vh; /* Full vertical height */
+  /*min-height: 100vh; /* Full vertical height */*/
 }
 
 .tabs {
@@ -49,13 +40,15 @@ body {
 
 .tab-button:hover {
   background-color: #ddd;
+  color: #2d2d2d;
+  transition: background-color 0.3s ease;
 }
 
 .tabs-content {
   border: 1px solid #ccc;
   border-radius: 5px;
   padding: 20px;
-  background-color: #fff;
+  background-color: #63a9ff;
 }
 
 .tab-page {

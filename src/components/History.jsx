@@ -75,7 +75,7 @@ const History = () => {
   };
 
   return (
-    <div className='container'>
+    <div className='h-container'>
       <Legend />
 
       <div className='history-container'>

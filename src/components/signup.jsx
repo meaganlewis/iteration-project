@@ -61,7 +61,12 @@ const Signup = () => {
   return (
     <Container className='login-container'>
       <Row className='justify-content-md-center'>
-        <Col md={4} className='border rounded'>
+        <Col
+          md={6}
+          lg={12}
+          className='border rounded login-box'
+          style={{ padding: '30px', marginTop: '50px' }}
+        >
           <div className='text-center mb-4'>
             <h2>Sign Up</h2>
           </div>

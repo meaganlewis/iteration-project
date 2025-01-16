@@ -14,8 +14,8 @@
 /* 5 pastel circle classes for 0..4 tasks completed */
 .legend-circle {
   margin-left: 12px;
-  width: 12px;
-  height: 12px;
+  min-width: 20px;
+  min-height: 20px;
   border-radius: 50%;
 }
 
@@ -45,10 +45,11 @@
 }
 
 /* Main container for the History page */
-.container {
+.h-container {
   padding: 20px;
   max-width: 600px;
   margin: 0 auto;
+  background-color: #63a9ff;
 }
 
 /* The area containing all the habit boxes */

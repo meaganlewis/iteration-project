@@ -76,10 +76,10 @@ export default function UserEntries() {
   };
 
   return (
-    <div className='workout-entry'>
+    <div className='entries'>
       <form onSubmit={handleSubmit}>
         {/* WATER */}
-        <div className="rows">
+        <div className='rows'>
           <label className='inline'>
             <div className='static-box'>Water Intake</div>
           </label>
@@ -185,3 +185,4 @@ export default function UserEntries() {
     </div>
   );
 }
+

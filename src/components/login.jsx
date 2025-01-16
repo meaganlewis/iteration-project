@@ -3,7 +3,6 @@ import OAuthCallback from './OAuthCallback';
 import { Link, useNavigate } from 'react-router-dom';
 import { Button, Form, Container, Row, Col } from 'react-bootstrap';
 import { useState } from 'react';
-import '../styles/login.css';
 
 const LoginPage = () => {
   // Local state to hold user input
@@ -65,10 +64,14 @@ const LoginPage = () => {
       {githubToken ? (
         <OAuthCallback githubToken={githubToken} />
       ) : (
-        <Row className='justify-content-md-center '>
-          {/*  Normal login UI */}
-          <Col md={4} className='border  rounded'>
-            <div className='text-center mb-4 '>
+        <Row className='justify-content-md-center'>
+          <Col
+            md={6}
+            lg={12}
+            className='border rounded login-box'
+            style={{ padding: '30px', marginTop: '50px' }}
+          >
+            <div className='text-center mb-4'>
               <h2 style={{ marginTop: '10px' }}>Sign In</h2>
             </div>
             <Button
@@ -104,14 +107,11 @@ const LoginPage = () => {
                 Sign in
               </Button>
             </Form>
-
-            {/* Display error message if any */}
             {error && (
               <div className='alert alert-danger mt-3' role='alert'>
                 {error}
               </div>
             )}
-
             <div className='text-center mt-3'>
               <p>
                 Don&apos;t have an account?{' '}

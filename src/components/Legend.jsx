@@ -1,5 +1,4 @@
-// Legend.jsx
-import styles from '../../styles/HistoryStyles'; // Import styles from HistoryStyles.js
+import styles from '../styles/HistoryStyles'; // Import styles from HistoryStyles.js
 
 const Legend = () => (
   <div style={styles.legend}>

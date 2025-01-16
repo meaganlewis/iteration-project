@@ -1,48 +1,119 @@
-import { useState } from 'react';
-import HistoryBox from './HistoryBox'; // Import HistoryBox component
-import Legend from './Legend'; // Import Legend component
-import styles from '../styles/HistoryStyles'; // Import styles from HistoryStyles.js
+import { useState, useEffect } from 'react';
+import HistoryBox from './HistoryBox';
+import Legend from './Legend';
+import '../styles/history.css';
 
 const History = () => {
-  const [history, setHistory] = useState([
-    { day: 'Monday', circleColor: '#FF5733', ratio: '4/4' },
-    { day: 'Tuesday', circleColor: '#33FF57', ratio: '3/4' },
-    { day: 'Wednesday', circleColor: '#3357FF', ratio: '2/4' },
-    { day: 'Thursday', circleColor: '#FFC300', ratio: '1/4' },
-    { day: 'Friday', circleColor: '#FF5733', ratio: '4/4' },
-    { day: 'Saturday', circleColor: '#33FF57', ratio: '3/4' },
-    { day: 'Sunday', circleColor: '#3357FF', ratio: '2/4' },
-  ]);
+  const [habits, setHabits] = useState([]);
 
-  const handleDelete = (index) => {
-    setHistory((prevHistory) => prevHistory.filter((_, i) => i !== index));
+  useEffect(() => {
+    async function fetchHabits() {
+      try {
+        const response = await fetch('http://localhost:3000/api/habits', {
+          credentials: 'include',
+        });
+        if (!response.ok) {
+          throw new Error('Failed to fetch habits');
+        }
+        const data = await response.json();
+        setHabits(data.habits);
+      } catch (error) {
+        console.error('Error fetching habits:', error);
+      }
+    }
+
+    fetchHabits();
+  }, []);
+
+  // Scoring helpers
+  function calculateScore(habitDoc) {
+    let score = 0;
+    if (habitDoc.water.value > 0) score++;
+    if (habitDoc.exercise.value > 0) score++;
+    if (habitDoc.sleep.value > 0) score++;
+    if (habitDoc.meditation.value > 0) score++;
+    return score; // 0..4
+  }
+
+  function mapScoreToColor(score) {
+    switch (score) {
+      case 0:
+        return '#FFB3B3'; // Pastel Red
+      case 1:
+        return '#FFD1B3'; // Pastel Orange
+      case 2:
+        return '#FFFFB3'; // Pastel Yellow
+      case 3:
+        return '#B3FFFF'; // Pastel Aqua
+      case 4:
+        return '#B3FFB3'; // Pastel Green
+      default:
+        return '#ddd';
+    }
+  }
+
+  const handleDelete = async (habitId) => {
+    try {
+      const response = await fetch(
+        `http://localhost:3000/api/habits/${habitId}`,
+        {
+          method: 'DELETE',
+          credentials: 'include',
+        },
+      );
+      if (!response.ok) {
+        throw new Error('Failed to delete habit');
+      }
+      setHabits((prev) => prev.filter((habit) => habit._id !== habitId));
+    } catch (err) {
+      console.error('Error deleting habit:', err);
+    }
   };
 
-  const handleEdit = (index) => {
-    console.log(`Edit button clicked for ${history[index].day}`);
+  const handleEdit = (habitId) => {
+    console.log(`Edit button clicked for habitId: ${habitId}`);
   };
 
   return (
-    <div style={styles.container}>
+    <div className='container'>
       <Legend />
-      <div style={styles.historyContainer}>
-        {history.map((item, index) => {
-          const date = new Date();
-          date.setDate(date.getDate() - (date.getDay() - index));
-          const dayDate = date.toLocaleDateString();
 
-          return (
-            <HistoryBox
-              key={index}
-              day={item.day}
-              date={dayDate}
-              circleColor={item.circleColor}
-              ratio={item.ratio}
-              onEdit={() => handleEdit(index)}
-              onDelete={() => handleDelete(index)}
-            />
-          );
-        })}
+      <div className='history-container'>
+        {habits.length === 0 ? (
+          <p>No habit history found. Start logging your habits!</p>
+        ) : (
+          habits.map((habit) => {
+            const createdAt = new Date(habit.createdAt);
+            const dateString = createdAt.toLocaleDateString();
+            const dayOfWeek = createdAt.toLocaleDateString('en-US', {
+              weekday: 'long',
+            });
+
+            // Calculate user "score" for that day & get pastel color
+            const score = calculateScore(habit.habits);
+            const circleColor = mapScoreToColor(score);
+
+            // Build ratio string for each habit
+            const ratio = `
+              Water: ${habit.habits.water.value}${habit.habits.water.unit},
+              Exercise: ${habit.habits.exercise.value}${habit.habits.exercise.unit},
+              Sleep: ${habit.habits.sleep.value}${habit.habits.sleep.unit},
+              Meditation: ${habit.habits.meditation.value}${habit.habits.meditation.unit}
+            `;
+
+            return (
+              <HistoryBox
+                key={habit._id}
+                day={dayOfWeek}
+                date={dateString}
+                circleColor={circleColor}
+                ratio={ratio}
+                onEdit={() => handleEdit(habit._id)}
+                onDelete={() => handleDelete(habit._id)}
+              />
+            );
+          })
+        )}
       </div>
     </div>
   );

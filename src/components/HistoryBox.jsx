@@ -1,33 +1,40 @@
-import styles from '../styles/HistoryStyles'; // Import styles from HistoryStyles.js
+import PropTypes from 'prop-types';
+import '../styles/history.css';
 
 const HistoryBox = ({ day, date, onEdit, onDelete, circleColor, ratio }) => {
   return (
-    <div style={styles.box}>
-      <div style={styles.circlesContainer}>
-        <div
-          style={{
-            ...styles.circle,
-            backgroundColor: circleColor,
-          }}
-        ></div>
+    <div className='box'>
+      <div className='circles-container'>
+        {/* Circle with dynamic color if you wish, 
+            or pick a .legend-circle-N class if you prefer a static approach */}
+        <div className='circle' style={{ backgroundColor: circleColor }} />
       </div>
-      <div style={styles.content}>
-        <p style={styles.day}>{day}</p>
-        <p style={styles.date}>{date}</p>
+
+      <div className='content'>
+        <div className='top-row'>
+          {/* Show the date or day — your choice */}
+          <p className='day'>{day}</p>
+          <p className='date'>{date}</p>
+        </div>
+        <p className='ratio'>{ratio}</p>
       </div>
-      <div style={styles.ratio}>
-        <p>{ratio}</p>
-      </div>
-      <div style={styles.buttonContainer}>
-        <button style={styles.button} onClick={onEdit}>
-          Edit
-        </button>
-        <button style={styles.button} onClick={onDelete}>
-          Delete
-        </button>
+
+      <div className='button-container'>
+        <button onClick={onEdit}>Edit</button>
+        <button onClick={onDelete}>Delete</button>
       </div>
     </div>
   );
+};
+//
+// Prop types validation
+HistoryBox.propTypes = {
+  day: PropTypes.string.isRequired,
+  date: PropTypes.string.isRequired,
+  onEdit: PropTypes.func.isRequired,
+  onDelete: PropTypes.func.isRequired,
+  circleColor: PropTypes.string.isRequired,
+  ratio: PropTypes.string.isRequired,
 };
 
 export default HistoryBox;

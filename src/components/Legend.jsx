@@ -1,22 +1,35 @@
-import styles from '../styles/HistoryStyles'; // Import styles from HistoryStyles.js
+import '../styles/history.css';
 
 const Legend = () => (
-  <div style={styles.legend}>
-    <div style={styles.legendItem}>
-      <div style={{ ...styles.legendCircle, backgroundColor: '#FF5733' }}></div>
-      <span style={styles.legendText}>Great</span>
+  <div className='legend'>
+    {/* 0 tasks completed / score */}
+    <div className='legend-item'>
+      <div className='legend-circle legend-circle-0'></div>
+      <span className='legend-text'>No Habits Completed / score</span>
     </div>
-    <div style={styles.legendItem}>
-      <div style={{ ...styles.legendCircle, backgroundColor: '#33FF57' }}></div>
-      <span style={styles.legendText}>Good</span>
+
+    {/* 1 task completed / score */}
+    <div className='legend-item'>
+      <div className='legend-circle legend-circle-1'></div>
+      <span className='legend-text'>1 Habit Completed / score</span>
     </div>
-    <div style={styles.legendItem}>
-      <div style={{ ...styles.legendCircle, backgroundColor: '#3357FF' }}></div>
-      <span style={styles.legendText}>Ok</span>
+
+    {/* 2 tasks completed / score */}
+    <div className='legend-item'>
+      <div className='legend-circle legend-circle-2'></div>
+      <span className='legend-text'>2 Habits Completed / score</span>
     </div>
-    <div style={styles.legendItem}>
-      <div style={{ ...styles.legendCircle, backgroundColor: '#FFC300' }}></div>
-      <span style={styles.legendText}>Bad</span>
+
+    {/* 3 tasks completed / score */}
+    <div className='legend-item'>
+      <div className='legend-circle legend-circle-3'></div>
+      <span className='legend-text'>3 Habits Completed / score</span>
+    </div>
+
+    {/* 4 tasks completed / score */}
+    <div className='legend-item'>
+      <div className='legend-circle legend-circle-4'></div>
+      <span className='legend-text'>All Habits Completed / score</span>
     </div>
   </div>
 );

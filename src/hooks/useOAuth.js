@@ -1,38 +1,57 @@
 import { useState, useEffect } from 'react';
 
 export default function useOAuth() {
-  const [token, setToken] = useState(() => localStorage.getItem('accessToken'));
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
     const urlParams = new URLSearchParams(window.location.search);
     const codeParam = urlParams.get('code');
 
-    // local storage is convinient a
-    // user can leave our web page and
-    // come back and still be logged in
-    // Bad security practice unless we
-    // use https only cookies for storage
-
-    if (codeParam && !token) {
-      (async function fetchToken() {
+    if (codeParam) {
+      (async () => {
         try {
-          // GET access token from /api/oauth/github/access-token
+          // Exchange code -> GitHub access_token
           const response = await fetch(
             `http://localhost:3000/api/oauth/github/access-token?code=${codeParam}`,
           );
           const data = await response.json();
+          const githubAccessToken = data.access_token;
 
-          // If our server returns a token, store it
-          if (data.access_token) {
-            localStorage.setItem('accessToken', data.access_token);
-            setToken(data.access_token);
-          }
-        } catch (error) {
-          console.error('Error fetching token:', error);
+          // Use that token to get GitHub user data from /github/userdata
+          const userDataResponse = await fetch(
+            'http://localhost:3000/api/oauth/github/userdata',
+            {
+              method: 'GET',
+              headers: { Authorization: 'Bearer ' + githubAccessToken },
+            },
+          );
+          const githubProfile = await userDataResponse.json();
+
+          // Upsert user in DB => server sets an http-only cookie
+          await fetch('http://localhost:3000/api/oauth/github', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            credentials: 'include', // Important!
+            body: JSON.stringify({
+              githubId: githubProfile.id,
+              login: githubProfile.login,
+              name: githubProfile.name,
+              email: githubProfile.email,
+              avatarUrl: githubProfile.avatar_url,
+            }),
+          });
+
+          // Cookie is now set. Navigating to /habits
+        } catch (err) {
+          console.error('OAuth error:', err);
+        } finally {
+          setIsLoading(false);
         }
       })();
+    } else {
+      setIsLoading(false);
     }
-  }, [token]);
+  }, []);
 
-  return token;
+  return isLoading;
 }

@@ -13,6 +13,7 @@
 
 /* 5 pastel circle classes for 0..4 tasks completed */
 .legend-circle {
+  margin-left: 12px;
   width: 12px;
   height: 12px;
   border-radius: 50%;

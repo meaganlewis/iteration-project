@@ -39,7 +39,7 @@ const habitSchema = new Schema(
         },
         unit: {
           type: String,
-          enum: ['hours'],
+          enum: ['minutes', 'hours'],
           required: true,
         },
       },
@@ -50,7 +50,7 @@ const habitSchema = new Schema(
         },
         unit: {
           type: String,
-          enum: ['minutes'],
+          enum: ['minutes', 'hours'],
           required: true,
         },
       },

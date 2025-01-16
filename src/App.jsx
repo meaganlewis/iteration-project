@@ -4,7 +4,7 @@ import Login from './components/login';
 import Signup from './components/signup';
 import HabitsTracker from './components/HabitsTracker';
 import healthLogo from './assets/health_logo.png';
-import History from './components/HistoryPage/History';
+import History from './components/History';
 function App() {
   return (
     <Router>
